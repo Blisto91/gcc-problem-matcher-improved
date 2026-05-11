@@ -21,6 +21,9 @@ const outputPath = path.join(__dirname, "gcc_matcher.json");
 // rootdir :: string
 const rootdir = core.getInput('build-directory', {required: false});
 
+// skipdirs :: string
+const skipdirs = core.getInput('skip-directories', {required: false});
+
 // parse :: string => string => Error | null
 const parse = (templatePath) => (matcherPath) => {
 	const content = fs.readFileSync(templatePath, 'utf-8');
@@ -28,6 +31,10 @@ const parse = (templatePath) => (matcherPath) => {
 	const parsed = content.replace(variable("BASE"), escapeRegExp(rootdir));
 
 	fs.writeFileSync(matcherPath, parsed);
+
+	const parsed2 = content.replace(variable("SKIP"), escapeRegExp(rootdir));
+
+	fs.writeFileSync(matcherPath, parsed2);
 
 	console.log('::add-matcher::' + matcherPath.replaceAll('\\', '\\\\'));
 }

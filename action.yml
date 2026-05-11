@@ -12,6 +12,9 @@ inputs:
   build-directory:
     description: 'base directory for build, e.g. /workdir/build'
     required: false
+  skip-directories:
+    description: 'directories to be skipped, e.g. subprojects|external'
+    required: false
 
 runs:
   using: 'node24'
