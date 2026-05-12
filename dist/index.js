@@ -2871,13 +2871,11 @@ const skipdirs = core.getInput('skip-directories', {required: false});
 const parse = (templatePath) => (matcherPath) => {
 	const content = fs.readFileSync(templatePath, 'utf-8');
 
-	const parsed = content.replace(variable("BASE"), escapeRegExp(rootdir));
+    const parsed = content.replace(variable("BASE"), escapeRegExp(rootdir));
 
-	fs.writeFileSync(matcherPath, parsed);
+    const parsed2 = parsed.replace(variable("SKIP"), escapeRegExp(skipdirs));
 
-	const parsed2 = content.replace(variable("SKIP"), escapeRegExp(skipdirs));
-
-	fs.writeFileSync(matcherPath, parsed2);
+    fs.writeFileSync(matcherPath, parsed2);
 
 	console.log('::add-matcher::' + matcherPath.replaceAll('\\', '\\\\'));
 }
