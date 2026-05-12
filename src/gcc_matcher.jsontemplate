@@ -6,10 +6,10 @@
                 {
                     "regexp": "^(..\/)${{ BASE }}\\/?(.*?)(?<!(${{ SKIP }}).*):(\\d+):(\\d*):?\\s+(?:fatal\\s+)?(warning|error):\\s+(.*)$",
                     "file": 2,
-                    "line": 3,
-                    "column": 4,
-                    "severity": 5,
-                    "message": 6
+                    "line": 4,
+                    "column": 5,
+                    "severity": 6,
+                    "message": 7
                 }
             ]
         }
