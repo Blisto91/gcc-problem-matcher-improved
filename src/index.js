@@ -32,7 +32,7 @@ const parse = (templatePath) => (matcherPath) => {
 
 	fs.writeFileSync(matcherPath, parsed);
 
-	const parsed2 = content.replace(variable("SKIP"), escapeRegExp(rootdir));
+	const parsed2 = content.replace(variable("SKIP"), escapeRegExp(skipdirs));
 
 	fs.writeFileSync(matcherPath, parsed2);
 
