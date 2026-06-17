@@ -23,6 +23,9 @@ const rootdir = core.getInput('build-directory', {required: false});
 
 // skipdirs :: string
 const skipdirs = core.getInput('skip-directories', {required: false});
+if (!skipdirs) {
+	skipdirs = "";
+}
 
 // parse :: string => string => Error | null
 const parse = (templatePath) => (matcherPath) => {
