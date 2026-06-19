@@ -33,7 +33,7 @@ const parse = (templatePath) => (matcherPath) => {
 	if (skipdirs) {
     	const parsed2 = parsed.replace(variable("SKIP"), escapeRegExp(skipdirs));
 	} else {
-		const parsed2 = parsed.replace(variable("SKIP"), '\0');
+		const parsed2 = parsed.replace(variable("SKIP"), '$');
 	}
 		
     fs.writeFileSync(matcherPath, parsed2);
