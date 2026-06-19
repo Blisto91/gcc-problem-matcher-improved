@@ -30,8 +30,12 @@ const parse = (templatePath) => (matcherPath) => {
 
     const parsed = content.replace(variable("BASE"), escapeRegExp(rootdir));
 
-    const parsed2 = parsed.replace("${{ SKIP }}", "");
-
+	if (skipdirs) {
+    	const parsed2 = parsed.replace(variable("SKIP"), escapeRegExp(skipdirs));
+	} else {
+		const parsed2 = parsed.replace(variable("SKIP"), '\0');
+	}
+		
     fs.writeFileSync(matcherPath, parsed2);
 
 	console.log('::add-matcher::' + matcherPath.replaceAll('\\', '\\\\'));
