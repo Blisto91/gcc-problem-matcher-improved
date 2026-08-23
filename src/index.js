@@ -21,8 +21,8 @@ const outputPath = path.join(__dirname, "gcc_matcher.json");
 // rootdir :: string
 const rootdir = core.getInput('build-directory', {required: false});
 
-// skipdirs :: string
-const skipdirs = core.getInput('skip-directories', {required: false});
+// skipdirs :: string[]
+const skipdirs = core.getMultilineInput('skip-directories', {required: false});
 
 // parse :: string => string => Error | null
 const parse = (templatePath) => (matcherPath) => {
@@ -30,11 +30,10 @@ const parse = (templatePath) => (matcherPath) => {
 
     const parsed = content.replace(variable("BASE"), escapeRegExp(rootdir));
 
-	if (skipdirs) {
-    	const parsed2 = parsed.replace(variable("SKIP"), escapeRegExp(skipdirs));
-	} else {
-		const parsed2 = parsed.replace(variable("SKIP"), '$');
-	}
+	for(let i = 0; i < skipdirs.length; i++)
+  		skipdirs[i].value = escapeRegExp(skipdirs[i]);
+	
+    const parsed2 = parsed.replace(variable("SKIP"), skipdirs.join("|"));
 		
     fs.writeFileSync(matcherPath, parsed2);
 
